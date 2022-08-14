@@ -1,13 +1,9 @@
-import Head from 'next/head'
 import Image from 'next/image'
-
 import styles from '../styles/Home.module.scss'
 
 import InfoBlock from '../components/InfoBlock'
 import MintBlock from '../components/MintBlock'
-
-import WalletConnect from '../components/WalletConnect'
-
+import BioBlock from '../components/BioBlock'
 
 const App = () => {
   return (
@@ -17,6 +13,8 @@ const App = () => {
       </div>
       <InfoBlock />
       <MintBlock />
+      <BioBlock text=""/>
+
     </main>
   );
 }
