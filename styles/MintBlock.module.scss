@@ -1,0 +1,109 @@
+.block {
+  margin: 24px auto;
+  padding-bottom: 2px;
+
+  gap: 24px;
+  flex-direction: column-reverse;
+  background: linear-gradient( #cacad6, #FFFFFF);
+  border-radius: 16px;
+  box-shadow: inset 0px 40px 40px #FFFFFF;
+  position: relative;
+  
+  p {
+    font-family: eurostile-extended, sans-serif;
+
+    & + p {
+      margin-top: 24px;
+    }
+  }
+
+  @include bp(sm) {
+    max-width: 100%;
+    margin: 40px auto;
+    gap: 40px;
+    flex-direction: row;
+    align-items: stretch;
+    padding-bottom: 4px;
+
+  }
+} 
+
+.blocktitle {
+  border-radius: 16px 16px 0px 0px;
+  width: 100%;
+  line-height: 64px;
+  height:64px;
+  text-align: center;
+}
+
+.content {
+  border-radius: 14px;
+  margin: 0 2px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  flex: 1;
+  padding: 16px;
+  background: linear-gradient(#ffffff, #A3A3AD);
+  box-shadow: inset 0px 4px 16px 4px #2e2e2e60;
+
+  @include bp(sm) {
+    gap: 40px;
+    padding: 40px;
+    margin: 0 4px;
+
+  }
+}
+
+.quantitybutton {
+  button:first-child {
+    border-bottom-right-radius: 0px;
+    border-top-right-radius: 0px;
+  }
+  button:last-child {
+    border-bottom-left-radius: 0px;
+    border-top-left-radius: 0px;
+  }
+}
+
+.mintbutton {
+  font-weight: 500;
+  text-transform: uppercase;
+  width: 100%;
+  @include bp(sm) {
+    width: 104px;
+  }
+}
+
+.mintquantity {
+  flex: 1;
+  display: flex;
+  background: linear-gradient(#FFFFFF 31.77%, #D9D9D9 73.96%);
+  border-radius: 8px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  span {
+    flex: 1;
+    display: block;
+    margin: 2px;
+    border-radius: 6px;
+    background: linear-gradient(180deg, #9FBAC9 0%, #C4E1F0 100%);
+    position: relative;
+    overflow: hidden;
+    box-shadow: inset 0px 8px 8px rgba(0, 0, 0, 0.05), inset 0px -8px 8px rgba(255, 255, 255, 0.25);
+
+  }
+  p {
+    position: absolute;
+    font-family: lores-12, sans-serif;
+    line-height: 48px;
+    font-size: 18px;
+    text-align: center;
+    width: 100%;
+    opacity: .75;
+  }
+  @include bp(sm) {
+    span {
+      margin: 4px;
+    }
+  }
+}

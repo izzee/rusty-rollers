@@ -1,0 +1,22 @@
+.main {
+  // max-width: 360px;
+  padding: 16px;
+  margin: auto;
+  @include bp(sm) {
+    max-width: 800px;
+  }
+
+  @include bp(md) {
+    max-width: 960px;
+  }
+}
+
+.titleimg {
+  margin: 24px auto;
+  @include bp(sm) {
+    margin: 40px auto;
+  }
+  @include bp(md) {
+    margin: 80px auto;
+  }
+}

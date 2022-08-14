@@ -1,0 +1,29 @@
+.marquee {
+  border: 1px solid black;
+  overflow: hidden;
+  position: relative;
+  height: 48px;
+  
+}
+
+.marquee p {
+  display: inline;
+  font-size: 24px;
+  line-height: 2;
+  white-space: nowrap;
+  position: absolute;
+  top:0;
+  left: 0;
+  animation: marquee 30s infinite linear;
+  font-family: eurostile-extended, sans-serif;
+
+font-weight: 700;
+
+font-style: italic;
+}
+
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
