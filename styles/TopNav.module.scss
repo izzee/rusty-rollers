@@ -1,6 +1,8 @@
 .topnav {
   font-size: 12px;
-  padding-top: 16px;
+  display: flex;
+  gap: 8px;
+  justify-content: space-between;
   @include bp(sm) {
     font-size: 16px;
   }
@@ -9,5 +11,20 @@
     border-radius: 32px !important;
     font-family: eurostile-extended !important;
     text-transform: uppercase;
+  }
+  button {
+    flex: 0;
+    @include bp(xs) {
+      flex: 1 !important;
+    }
+    text-align: center !important;
+  }
+}
+
+.socials {
+  display: flex;
+  gap: 8px;
+  @include bp(sm) {
+    gap: 16px;
   }
 }
