@@ -16,29 +16,10 @@ a {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-  font-family: eurostile-extended, sans-serif;
 }
 
 
 body {
-  background: linear-gradient(#727D90 0%, #525066 25%, #000000 100%);
+  background: linear-gradient(#525066 0%, #525066 25%, #000000 100%);
 }
 
-button {
-  cursor: not-allowed;
-  border-radius: 8px;
-  -webkit-appearance: none;
-  border: 0;
-  width: 56px;
-  height:56px;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), inset 0px -4px 4px rgba(0, 0, 0, 0.25);
-  background: linear-gradient(#FFFFFF 31.77%, #D9D9D9 73.96%);
-  color: rgba(0, 0, 0, 0.50);
-
-  img {
-    opacity: .5;
-  }
-  &:hover {
-    background: inear-gradient(#FFFFFF 31.77%, #D9D9D9 35.96%);
-  }
-}
