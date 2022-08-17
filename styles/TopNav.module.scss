@@ -5,7 +5,9 @@
   justify-content: space-between;
   @include bp(sm) {
     font-size: 16px;
+    margin-top:24px;
   }
+
   button, button > *{
     background: #F5AF37 !important;
     border-radius: 32px !important;

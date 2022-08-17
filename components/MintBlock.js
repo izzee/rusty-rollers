@@ -1,12 +1,13 @@
 import Image from 'next/image'
 import styles from '../styles/MintBlock.module.scss'
+import { useState } from 'react';
 
-const MintBlock = () => {
+const MintBlock = ({supply}) => {
 
   return (
     <div className={styles.block}>
       <div className={styles.blocktitle}>
-        Free Mint
+        {supply} of 500 minted
       </div>
       <div className={styles.content}>
         <div className={styles.quantitybutton}>

@@ -82,9 +82,10 @@
 }
 
 button.mintbutton {
+  width: 100%;
   font-weight: 500;
   text-transform: uppercase;
-  width: 100%;
+  font-family: eurostile-extended, sans-serif;
   @include bp(sm) {
     width: 104px;
   }

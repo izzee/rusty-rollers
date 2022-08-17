@@ -8,9 +8,9 @@ import { publicProvider } from 'wagmi/providers/public';
 import { ThirdwebProvider, ChainId } from "@thirdweb-dev/react";
 
 const { chains, provider } = configureChains(
-  [chain.mainnet],
+  [chain.rinkeby],
   [
-    alchemyProvider({ apiKey: process.env.ALCHEMY_ID }),
+    alchemyProvider({ apiKey: 'eZYUuCVfJaqilCSQv3dbCEXSeoQ7-IAo' }),
     publicProvider()
   ]
 );
@@ -21,7 +21,7 @@ const { connectors } = getDefaultWallets({
 });
 
 const wagmiClient = createClient({
-  autoConnect: true,
+  autoConnect: false,
   connectors,
   provider
 })
@@ -37,7 +37,7 @@ function MyApp({ Component, pageProps }) {
   return (
     <WagmiConfig client={wagmiClient}>
       <RainbowKitProvider chains={chains} theme={rainbowTheme}>
-        <ThirdwebProvider desiredChainId={ChainId}>
+        <ThirdwebProvider desiredChainId={ChainId.Rinkeby}>
           <Component {...pageProps} />
         </ThirdwebProvider>
       </RainbowKitProvider>
