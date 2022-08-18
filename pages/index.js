@@ -16,7 +16,6 @@ const App = () => {
   const { address, isConnecting, isDisconnected } = useAccount()
 
   useEffect(()=> {
-    
     getMerkleProof(address)
   },[address])
 
@@ -34,7 +33,7 @@ const App = () => {
   }
 
   const rustyRollersContract = {
-    addressOrName: '0xf01Da744ed11853392cd343A9AB8350c422BbFE3',
+    addressOrName: '0x5d7EfC6C1F9618A3821EeEcCa66E7B5FAFA5399D',
     contractInterface: abi,
   }
 

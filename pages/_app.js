@@ -21,16 +21,15 @@ const { connectors } = getDefaultWallets({
 });
 
 const wagmiClient = createClient({
-  autoConnect: false,
+  autoConnect: true,
   connectors,
   provider
 })
 
 const rainbowTheme = lightTheme({
-  accentColor: '#F5AF37',
-  accentColorForeground: 'black',
+  accentColorForeground: '#000',
   borderRadius: 'medium',
-  overlayBlur: 'large'
+  overlayBlur: 'large',
 })
 
 function MyApp({ Component, pageProps }) {
