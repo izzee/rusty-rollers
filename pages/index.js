@@ -76,7 +76,10 @@ const App = () => {
   
   // Utility Methods
   const bigNumToNum = (bigNumber) => {
-    return ethers.BigNumber.from(bigNumber).toNumber() || 0
+    if (bigNumber) {
+      return ethers.BigNumber.from(bigNumber).toNumber() || 0
+    }
+    return 0
   }
   const checkIfAllowlisted = async () => {
     if(address) {
