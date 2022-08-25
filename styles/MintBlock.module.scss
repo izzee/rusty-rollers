@@ -44,8 +44,8 @@
   button {
     border-radius: 8px;
     border: 0;
-    width: 56px;
-    height:56px;
+    width: 40px;
+    height: 56px;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), inset 0px -4px 4px rgba(0, 0, 0, 0.25);
     background: linear-gradient(#ffffff, #DEDEDE);
     cursor: pointer;
@@ -57,6 +57,9 @@
       img {
         opacity: .5;
       }
+    }
+    @include bp(sm) {
+      width: 64px;
     }
   }
 
@@ -72,7 +75,9 @@
   &:nth-child(3){
     margin-top: 4px;
     border-radius: 0 0 14px 14px;
-
+  }
+  &:nth-child(2):last-child {
+    border-radius: 14px;
   }
 }
 
@@ -93,7 +98,7 @@ button.mintbutton {
   text-transform: uppercase;
   font-family: eurostile-extended, sans-serif;
   @include bp(sm) {
-    width: 112px;
+    width: 128px;
   }
 }
 
