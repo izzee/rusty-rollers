@@ -4,7 +4,7 @@ import { useContractRead, usePrepareContractWrite, useContractWrite} from 'wagmi
 import Image from 'next/image'
 import styles from '../styles/MintBlock.module.scss'
 
-const FreeMint = ({
+const PublicMint = ({
   address,
   merkleProof,
   contractInfo,
@@ -84,10 +84,10 @@ const FreeMint = ({
             <p>{mintIndicatorCopy()}</p>
           </span>
         </div>
-        <button className={styles.mintbutton} disabled={freeMintBtnDisabled()} onClick={() => handleFreeMint(freeQuantity)}>Free Mint</button>
+        <button className={styles.mintbutton} disabled={freeMintBtnDisabled()} onClick={() => handleFreeMint(freeQuantity)}>Mint</button>
       </>
     </div>
   );
 };
 
-export default FreeMint
+export default PublicMint

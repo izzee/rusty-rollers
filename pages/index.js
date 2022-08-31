@@ -78,6 +78,7 @@ const App = () => {
     address,
     supply,
     freeMintActive,
+    publicMintActive,
     merkleProof,
     contractInfo,
     bigNumToNum
