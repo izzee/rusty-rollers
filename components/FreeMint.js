@@ -36,7 +36,7 @@ const FreeMint = ({
   },[address, bigNumToNum, setAllowlistVerified, contractReadFreeMintCount.data, contractReadUserVerified.data])
 
   // Contract Writes
-  const {config: freeMintConfig} = usePrepareContractWrite({
+  const {config: freeMintConfig, error: prepareError, isError: isPrepareError} = usePrepareContractWrite({
     ...contractInfo,
     functionName: 'freeMint',
     args: [merkleProof, freeQuantity],
@@ -55,7 +55,7 @@ const FreeMint = ({
   }
   const freeMintBtnDisabled = () => {
     const validQuantity = freeQuantity > 0 && freeQuantity + freeMintCount <= 2
-    return !validQuantity && !allowlistVerified
+    return !validQuantity || !allowlistVerified
   }
   const mintIndicatorCopy = () => {
     if (isSuccess) {
@@ -69,23 +69,21 @@ const FreeMint = ({
 
   return (
     <div className={styles.content}>
-      <>
-        <div className={styles.quantitybutton}>
-          <button onClick={() => changeFreeMintQuantity(-1)} disabled={freeQuantity == 0}>
-            <Image src='/images/down.svg' width='16px' height='8px' alt='Rusty Roller image'/>
-          </button>
-          
-          <button onClick={() => changeFreeMintQuantity(1)} disabled={freeQuantity + freeMintCount == 2}>
-            <Image src='/images/up.svg' width='16px' height='8px' alt='Rusty Roller image'/>
-          </button>
-        </div>
-        <div className={styles.mintquantity}>
-          <span>
-            <p>{mintIndicatorCopy()}</p>
-          </span>
-        </div>
-        <button className={styles.mintbutton} disabled={freeMintBtnDisabled()} onClick={() => handleFreeMint(freeQuantity)}>Free Mint</button>
-      </>
+      <div className={styles.quantitybutton}>
+        <button onClick={() => changeFreeMintQuantity(-1)} disabled={freeQuantity == 0}>
+          <Image src='/images/down.svg' width='16px' height='8px' alt='Rusty Roller image'/>
+        </button>
+        
+        <button onClick={() => changeFreeMintQuantity(1)} disabled={freeQuantity + freeMintCount == 2}>
+          <Image src='/images/up.svg' width='16px' height='8px' alt='Rusty Roller image'/>
+        </button>
+      </div>
+      <div className={styles.mintquantity}>
+        <span>
+          <p>{mintIndicatorCopy()}</p>
+        </span>
+      </div>
+      <button className={styles.mintbutton} disabled={freeMintBtnDisabled()} onClick={() => handleFreeMint(freeQuantity)}>Free Mint</button>
     </div>
   );
 };

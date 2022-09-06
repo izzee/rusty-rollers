@@ -19,7 +19,6 @@ const leaves = allowlist.map(x => keccak256(x))
 const tree = new MerkleTree(leaves, keccak256, {sortPairs: true})
 
 export default function handler(req, res) {
-  console.log('root', tree.getRoot())
   const {address} = JSON.parse(req.body)
   
   const leaf = keccak256(address)

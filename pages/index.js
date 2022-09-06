@@ -1,4 +1,4 @@
-import { useAccount, useContractRead, usePrepareContractWrite, useContractWrite} from 'wagmi'
+import { useAccount, useContractRead} from 'wagmi'
 import { useState, useEffect } from 'react';
 import { ethers } from "ethers";
 
@@ -20,6 +20,7 @@ const App = () => {
   const [merkleProof, setMerkleProof] = useState(0)
   
   const { address, isConnecting, isDisconnected } = useAccount()
+
   
   // Contract Reads
   const contractInfo = {

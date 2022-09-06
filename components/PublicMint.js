@@ -1,61 +1,75 @@
 
 import { useState, useEffect } from 'react';
-import { useContractRead, usePrepareContractWrite, useContractWrite} from 'wagmi'
+import { useContractRead, usePrepareContractWrite, useContractWrite, useWaitForTransaction} from 'wagmi'
 import Image from 'next/image'
 import styles from '../styles/MintBlock.module.scss'
+const Web3 = require('web3');
 
 const PublicMint = ({
   address,
-  merkleProof,
   contractInfo,
   bigNumToNum
+  
 }) => {
 
-  const [freeQuantity, setFreeQuantity] = useState(0)
-  const [freeMintCount, setFreeMintCount] = useState(0)
-  const [allowlistVerified, setAllowlistVerified] = useState(false)
+  const [publicQuantity, setPublicQuantity] = useState(0)
+  const [publicMintCount, setPublicMintCount] = useState(0)
+  const [mintPrice, setMintPrice] = useState(0)
+  const [mintPriceWei, setMintPriceWei] = useState(0)
 
   // Contract Reads
-  const contractReadFreeMintCount = useContractRead({
+  const contractReadPublicMintCount = useContractRead({
     ...contractInfo,
-    functionName: 'getFreeMintCount',
+    functionName: 'numberMinted',
     args: address,
   })
-
-  const contractReadUserVerified = useContractRead({
+  const contractReadGetMintPrice = useContractRead({
     ...contractInfo,
-    functionName: 'getUserVerifed',
-    args: [merkleProof, address]
+    functionName: 'getMintPrice',
   })
 
   useEffect(() => {
-    const freeCount = contractReadFreeMintCount.data
-    const freeMintCountIfActive = bigNumToNum(freeCount) || 0
-    setFreeMintCount(freeMintCountIfActive)
-    setAllowlistVerified(contractReadUserVerified.data)
-  },[address, bigNumToNum, setAllowlistVerified, contractReadFreeMintCount.data, contractReadUserVerified.data])
+    const publicCount = contractReadPublicMintCount.data
+    const publicMintCountIfActive = bigNumToNum(publicCount) || 0
+    setPublicMintCount(publicMintCountIfActive)
+  },[address, bigNumToNum, contractReadPublicMintCount.data])
+
+  useEffect(() => {
+    setMintPrice(publicQuantity * 0.01.toFixed(2))
+    const WeiPrice = Web3.utils.toWei(`${publicQuantity * 0.01.toFixed(2)}`, 'ether')
+    const WeiBigNum = Web3.utils.toBN(WeiPrice).toString()
+    setMintPriceWei(WeiBigNum)
+  },[publicQuantity])
 
   // Contract Writes
-  const {config: freeMintConfig} = usePrepareContractWrite({
+  const {config: publicMintConfig, error: prepareError, isError: isPrepareError} = usePrepareContractWrite({
     ...contractInfo,
-    functionName: 'freeMint',
-    args: [merkleProof, freeQuantity],
-    enabled: freeQuantity > 0 && freeQuantity + freeMintCount <= 2
+    functionName: 'mint',
+    args: [publicQuantity],
+    overrides: {
+      value: mintPriceWei
+    },
+    enabled: (publicQuantity > 0 && publicQuantity + publicMintCount <= 10),
   })
-  const {write, isSuccess, isLoading, isFetching} = useContractWrite(freeMintConfig)
+  
+  const {write, data, error, isError} = useContractWrite(publicMintConfig)
+
+  const { isLoading, isSuccess } = useWaitForTransaction({
+    hash: data?.hash
+  })
 
   // Methods
-  const handleFreeMint = (quantity) => {
-    write?.(merkleProof, quantity || 0)
+  const handlePublicMint = () => {
+    write?.(mintPriceWei)
   }
-  const changeFreeMintQuantity = (direction) => {
-    if (freeQuantity + direction >= 0 && (freeQuantity + direction + freeMintCount) <= 2) {
-      setFreeQuantity(freeQuantity + direction)
+  const changePublicMintQuantity = (direction) => {
+    if (publicQuantity + direction >= 0 && (publicQuantity + direction + publicMintCount) <= 10) {
+      setPublicQuantity(publicQuantity + direction)
     }
   }
-  const freeMintBtnDisabled = () => {
-    const validQuantity = freeQuantity > 0 && freeQuantity + freeMintCount <= 2
-    return !validQuantity && !allowlistVerified
+  const publicMintBtnDisabled = () => {
+    const validQuantity = publicQuantity > 0 && publicQuantity + publicMintCount <= 10
+    return !validQuantity
   }
   const mintIndicatorCopy = () => {
     if (isSuccess) {
@@ -63,29 +77,26 @@ const PublicMint = ({
     } else if (isLoading) {
       return 'Loading...'
     } else {
-      return `${freeQuantity || 0} x 0.00 = 0 ETH`
+      return `${publicQuantity} x 0.01 = ${mintPrice} ETH`
     }
   }
 
   return (
     <div className={styles.content}>
-      <>
-        <div className={styles.quantitybutton}>
-          <button onClick={() => changeFreeMintQuantity(-1)} disabled={freeQuantity == 0}>
-            <Image src='/images/down.svg' width='16px' height='8px' alt='Rusty Roller image'/>
-          </button>
-          
-          <button onClick={() => changeFreeMintQuantity(1)} disabled={freeQuantity + freeMintCount == 2}>
-            <Image src='/images/up.svg' width='16px' height='8px' alt='Rusty Roller image'/>
-          </button>
-        </div>
-        <div className={styles.mintquantity}>
-          <span>
-            <p>{mintIndicatorCopy()}</p>
-          </span>
-        </div>
-        <button className={styles.mintbutton} disabled={freeMintBtnDisabled()} onClick={() => handleFreeMint(freeQuantity)}>Mint</button>
-      </>
+      <div className={styles.quantitybutton}>
+        <button onClick={() => changePublicMintQuantity(-1)} disabled={publicQuantity == 0}>
+          <Image src='/images/down.svg' width='16px' height='8px' alt='Rusty Roller image'/>
+        </button>
+        <button onClick={() => changePublicMintQuantity(1)} disabled={publicQuantity + publicMintCount == 10}>
+          <Image src='/images/up.svg' width='16px' height='8px' alt='Rusty Roller image'/>
+        </button>
+      </div>
+      <div className={styles.mintquantity}>
+        <span>
+          <p>{mintIndicatorCopy()}</p>
+        </span>
+      </div>
+      <button className={styles.mintbutton} disabled={publicMintBtnDisabled()} onClick={() => handlePublicMint()}>Mint</button>
     </div>
   );
 };
