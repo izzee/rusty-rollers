@@ -9,7 +9,6 @@ const PublicMint = ({
   address,
   contractInfo,
   bigNumToNum
-  
 }) => {
 
   const [publicQuantity, setPublicQuantity] = useState(0)
@@ -34,22 +33,15 @@ const PublicMint = ({
     setPublicMintCount(publicMintCountIfActive)
   },[address, bigNumToNum, contractReadPublicMintCount.data])
 
-  useEffect(() => {
-    setMintPrice(publicQuantity * 0.01.toFixed(2))
-    const WeiPrice = Web3.utils.toWei(`${publicQuantity * 0.01.toFixed(2)}`, 'ether')
-    const WeiBigNum = Web3.utils.toBN(WeiPrice).toString()
-    setMintPriceWei(WeiBigNum)
-  },[publicQuantity])
-
   // Contract Writes
   const {config: publicMintConfig, error: prepareError, isError: isPrepareError} = usePrepareContractWrite({
     ...contractInfo,
     functionName: 'mint',
     args: [publicQuantity],
     overrides: {
-      value: mintPriceWei
+      value:  Web3.utils.toBN(Web3.utils.toWei(`${publicQuantity * 0.01.toFixed(2)}`, 'ether')).toString()
     },
-    enabled: (publicQuantity > 0 && publicQuantity + publicMintCount <= 10),
+    enabled: publicQuantity > 0 && publicQuantity + publicMintCount <= 10,
   })
   
   const {write, data, error, isError} = useContractWrite(publicMintConfig)
@@ -62,9 +54,15 @@ const PublicMint = ({
   const handlePublicMint = () => {
     write?.(mintPriceWei)
   }
+
   const changePublicMintQuantity = (direction) => {
-    if (publicQuantity + direction >= 0 && (publicQuantity + direction + publicMintCount) <= 10) {
-      setPublicQuantity(publicQuantity + direction)
+    const newQuantity = publicQuantity + direction;
+    if (newQuantity >= 0 && (newQuantity + publicMintCount) <= 10) {
+      const WeiPrice = Web3.utils.toWei(`${newQuantity * 0.01.toFixed(2)}`, 'ether')
+      const WeiBigNum = Web3.utils.toBN(WeiPrice).toString()
+      setMintPriceWei(WeiBigNum)
+      setMintPrice(newQuantity * 0.01.toFixed(2))
+      setPublicQuantity(newQuantity)
     }
   }
   const publicMintBtnDisabled = () => {
