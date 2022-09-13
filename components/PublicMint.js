@@ -1,5 +1,6 @@
 
 import { useState, useEffect } from 'react';
+import { ConnectButton } from '@rainbow-me/rainbowkit';
 import { useContractRead, usePrepareContractWrite, useContractWrite, useWaitForTransaction} from 'wagmi'
 import Image from 'next/image'
 import styles from '../styles/MintBlock.module.scss'
@@ -44,9 +45,9 @@ const PublicMint = ({
     enabled: publicQuantity > 0 && publicQuantity + publicMintCount <= 10,
   })
   
-  const {write, data, error, isError} = useContractWrite(publicMintConfig)
+  const {write, data, error, isError, isLoading, isSuccess} = useContractWrite(publicMintConfig)
 
-  const { isLoading, isSuccess } = useWaitForTransaction({
+  const { isTransactionLoading, isTransactionSuccess } = useWaitForTransaction({
     hash: data?.hash
   })
 
@@ -81,20 +82,23 @@ const PublicMint = ({
 
   return (
     <div className={styles.content}>
-      <div className={styles.quantitybutton}>
-        <button onClick={() => changePublicMintQuantity(-1)} disabled={publicQuantity == 0}>
-          <Image src='/images/down.svg' width='16px' height='8px' alt='Rusty Roller image'/>
-        </button>
-        <button onClick={() => changePublicMintQuantity(1)} disabled={publicQuantity + publicMintCount == 10}>
-          <Image src='/images/up.svg' width='16px' height='8px' alt='Rusty Roller image'/>
-        </button>
-      </div>
-      <div className={styles.mintquantity}>
-        <span>
-          <p>{mintIndicatorCopy()}</p>
-        </span>
-      </div>
-      <button className={styles.mintbutton} disabled={publicMintBtnDisabled()} onClick={() => handlePublicMint()}>Mint</button>
+      <h3>Public Mint</h3>
+        <div className={styles.flexwrap}>
+          <div className={styles.quantitybutton}>
+            <button onClick={() => changePublicMintQuantity(-1)} disabled={publicQuantity == 0}>
+              <Image src='/images/down.svg' width='16px' height='8px' alt='Rusty Roller image'/>
+            </button>
+            <button onClick={() => changePublicMintQuantity(1)} disabled={publicQuantity + publicMintCount == 10}>
+              <Image src='/images/up.svg' width='16px' height='8px' alt='Rusty Roller image'/>
+            </button>
+          </div>
+          <div className={styles.mintquantity}>
+            <span>
+              <p>{mintIndicatorCopy()}</p>
+            </span>
+          </div>
+          <button className={styles.mintbutton} disabled={publicMintBtnDisabled()} onClick={() => handlePublicMint()}>Mint</button>
+        </div>
     </div>
   );
 };

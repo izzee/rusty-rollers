@@ -22,18 +22,17 @@ const MintBlock = ({
 
   const displayFreeMint = !!merkleProof.length && !!freeMintActive
 
-  
   return (
     <div className={styles.block}>
       <div className={styles.blocktitle}>
         {supply || 0} of 500 minted
       </div>
       {
-        displayFreeMint &&
+        displayFreeMint && 
         <FreeMint {...mintBlockProps}/>
       }
-      {
-        publicMintActive &&
+      { 
+        publicMintActive && 
         <PublicMint {...mintBlockProps}/>
       }
     </div>

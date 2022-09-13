@@ -36,13 +36,13 @@ const FreeMint = ({
   },[address, bigNumToNum, setAllowlistVerified, contractReadFreeMintCount.data, contractReadUserVerified.data])
 
   // Contract Writes
-  const {config: freeMintConfig, error: prepareError, isError: isPrepareError} = usePrepareContractWrite({
+  const {config: freeMintConfig} = usePrepareContractWrite({
     ...contractInfo,
     functionName: 'freeMint',
     args: [merkleProof, freeQuantity],
     enabled: freeQuantity > 0 && freeQuantity + freeMintCount <= 2
   })
-  const {write, isSuccess, isLoading, isFetching} = useContractWrite(freeMintConfig)
+  const {write, isSuccess, isLoading} = useContractWrite(freeMintConfig)
 
   // Methods
   const handleFreeMint = (quantity) => {
@@ -69,21 +69,24 @@ const FreeMint = ({
 
   return (
     <div className={styles.content}>
-      <div className={styles.quantitybutton}>
-        <button onClick={() => changeFreeMintQuantity(-1)} disabled={freeQuantity == 0}>
-          <Image src='/images/down.svg' width='16px' height='8px' alt='Rusty Roller image'/>
-        </button>
-        
-        <button onClick={() => changeFreeMintQuantity(1)} disabled={freeQuantity + freeMintCount == 2}>
-          <Image src='/images/up.svg' width='16px' height='8px' alt='Rusty Roller image'/>
-        </button>
+      <h3>Free Mint</h3>
+      <div className={styles.flexwrap}>
+        <div className={styles.quantitybutton}>
+          <button onClick={() => changeFreeMintQuantity(-1)} disabled={freeQuantity == 0}>
+            <Image src='/images/down.svg' width='16px' height='8px' alt='Rusty Roller image'/>
+          </button>
+          
+          <button onClick={() => changeFreeMintQuantity(1)} disabled={freeQuantity + freeMintCount == 2}>
+            <Image src='/images/up.svg' width='16px' height='8px' alt='Rusty Roller image'/>
+          </button>
+        </div>
+        <div className={styles.mintquantity}>
+          <span>
+            <p>{mintIndicatorCopy()}</p>
+          </span>
+        </div>
+        <button className={styles.mintbutton} disabled={freeMintBtnDisabled()} onClick={() => handleFreeMint(freeQuantity)}>Mint</button>
       </div>
-      <div className={styles.mintquantity}>
-        <span>
-          <p>{mintIndicatorCopy()}</p>
-        </span>
-      </div>
-      <button className={styles.mintbutton} disabled={freeMintBtnDisabled()} onClick={() => handleFreeMint(freeQuantity)}>Free Mint</button>
     </div>
   );
 };
