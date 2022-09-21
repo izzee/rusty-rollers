@@ -1,6 +1,6 @@
 
-import { useState, useEffect } from 'react';
-import { useContractRead, usePrepareContractWrite, useContractWrite} from 'wagmi'
+import { useFreeMint } from './hooks/useFreeMint';
+
 import Image from 'next/image'
 import styles from '../styles/MintBlock.module.scss'
 
@@ -10,62 +10,18 @@ const FreeMint = ({
   contractInfo,
   bigNumToNum
 }) => {
+  
+  const {
+    changeFreeMintQuantity,
+    freeQuantity,
+    freeMintCount,
+    freeMintBtnDisabled,
+    handleFreeMint,
+    mintIndicatorCopy,
+    mintTextNumber,
+    showMintTextNumber
 
-  const [freeQuantity, setFreeQuantity] = useState(0)
-  const [freeMintCount, setFreeMintCount] = useState(0)
-  const [allowlistVerified, setAllowlistVerified] = useState(false)
-
-  // Contract Reads
-  const contractReadFreeMintCount = useContractRead({
-    ...contractInfo,
-    functionName: 'getFreeMintCount',
-    args: address,
-  })
-
-  const contractReadUserVerified = useContractRead({
-    ...contractInfo,
-    functionName: 'getUserVerifed',
-    args: [merkleProof, address]
-  })
-
-  useEffect(() => {
-    const freeCount = contractReadFreeMintCount.data
-    const freeMintCountIfActive = bigNumToNum(freeCount) || 0
-    setFreeMintCount(freeMintCountIfActive)
-    setAllowlistVerified(contractReadUserVerified.data)
-  },[address, bigNumToNum, setAllowlistVerified, contractReadFreeMintCount.data, contractReadUserVerified.data])
-
-  // Contract Writes
-  const {config: freeMintConfig} = usePrepareContractWrite({
-    ...contractInfo,
-    functionName: 'freeMint',
-    args: [merkleProof, freeQuantity],
-    enabled: freeQuantity > 0 && freeQuantity + freeMintCount <= 2
-  })
-  const {write, isSuccess, isLoading} = useContractWrite(freeMintConfig)
-
-  // Methods
-  const handleFreeMint = (quantity) => {
-    write?.(merkleProof, quantity || 0)
-  }
-  const changeFreeMintQuantity = (direction) => {
-    if (freeQuantity + direction >= 0 && (freeQuantity + direction + freeMintCount) <= 2) {
-      setFreeQuantity(freeQuantity + direction)
-    }
-  }
-  const freeMintBtnDisabled = () => {
-    const validQuantity = freeQuantity > 0 && freeQuantity + freeMintCount <= 2
-    return !validQuantity || !allowlistVerified
-  }
-  const mintIndicatorCopy = () => {
-    if (isSuccess) {
-      return 'Success!'
-    } else if (isLoading) {
-      return 'Loading...'
-    } else {
-      return `${freeQuantity || 0} x 0.00 = 0 ETH`
-    }
-  }
+  } = useFreeMint(address, contractInfo, merkleProof, bigNumToNum);
 
   return (
     <div className={styles.content}>
@@ -82,7 +38,7 @@ const FreeMint = ({
         </div>
         <div className={styles.mintquantity}>
           <span>
-            <p>{mintIndicatorCopy()}</p>
+            <p>{!showMintTextNumber && mintIndicatorCopy || mintTextNumber}</p>
           </span>
         </div>
         <button className={styles.mintbutton} disabled={freeMintBtnDisabled()} onClick={() => handleFreeMint(freeQuantity)}>Mint</button>

@@ -24,12 +24,13 @@ const App = () => {
   
   // Contract Reads
   const contractInfo = {
-    addressOrName: '0x5d7EfC6C1F9618A3821EeEcCa66E7B5FAFA5399D',
+    addressOrName: '0x564e3283055471966F2D23dd8b63e39A268adb9e',
     contractInterface: abi,
   }
   const contractReadSupply = useContractRead({
     ...contractInfo,
     functionName: 'totalSupply',
+    watch: true,
   })
   const contractReadMaxPerWallet = useContractRead({
     ...contractInfo,
@@ -58,7 +59,6 @@ const App = () => {
     collectionSupply !== supply && setSupply(collectionSupply)
     setMaxPerWallet(contractReadMaxPerWallet.data)
     setPublicMintActive(contractReadIsMintActive.data)
-    setFreeMintActive(contractReadIsFreeMintActive.data)
     setFreeMintActive(contractReadIsFreeMintActive.data)
   }, [supply, contractReadSupply.data, contractReadMaxPerWallet.data, contractReadIsMintActive.data, contractReadIsFreeMintActive.data])
 
