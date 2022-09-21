@@ -7,6 +7,7 @@ export const usePublicMint = (address, contractInfo, bigNumToNum) => {
   const [publicMintCount, setPublicMintCount] = useState(0)
   const [mintPrice, setMintPrice] = useState(0)
   const [mintPriceWei, setMintPriceWei] = useState(0)
+  const [mintPriceEth, setMintPriceEth] = useState(0)
   const [showMintTextNumber, setShowMintTextNumber] = useState(true)
   const [mintTextNumber, setMintTextNumber] = useState('0 x 0.00 = 0 ETH')
   
@@ -23,11 +24,14 @@ export const usePublicMint = (address, contractInfo, bigNumToNum) => {
     functionName: 'getMintPrice',
   })
 
-  const mintPriceEth = Web3.utils.fromWei(`${contractReadGetMintPrice.data}`, 'ether')
+  useEffect(() => {
+    setMintPriceWei(contractReadGetMintPrice.data)
+    setMintPriceEth(contractReadGetMintPrice.data && Web3.utils.fromWei(`${contractReadGetMintPrice.data}`, 'ether'))
+  }, [contractReadGetMintPrice.data])
 
   useEffect(() => {
     setMintTextNumber(`${publicQuantity} x ${mintPriceEth} = ${mintPrice} ETH`)
-  }, [publicQuantity, mintPrice])
+  }, [publicQuantity, mintPrice, mintPriceEth])
 
   useEffect(() => {
     const publicCount = contractReadPublicMintCount.data
@@ -36,7 +40,7 @@ export const usePublicMint = (address, contractInfo, bigNumToNum) => {
   },[address, bigNumToNum, contractReadPublicMintCount.data])
 
   // Contract Writes
-  const {config: publicMintConfig, error: prepareError, isError: isPrepareError} = usePrepareContractWrite({
+  const {config: publicMintConfig} = usePrepareContractWrite({
     ...contractInfo,
     functionName: 'mint',
     args: [publicQuantity],
@@ -46,11 +50,7 @@ export const usePublicMint = (address, contractInfo, bigNumToNum) => {
     enabled: publicQuantity > 0 && publicQuantity + publicMintCount <= 10,
   })
   
-  const {write, data, error, isError, isLoading, isSuccess} = useContractWrite(publicMintConfig)
-
-  const { isTransactionLoading, isTransactionSuccess } = useWaitForTransaction({
-    hash: data?.hash
-  })
+  const {write, isLoading, isSuccess} = useContractWrite(publicMintConfig)
 
   // Methods
   const handlePublicMint = () => {
@@ -65,9 +65,6 @@ export const usePublicMint = (address, contractInfo, bigNumToNum) => {
     const newQuantity = publicQuantity + direction;
     if (newQuantity >= 0 && (newQuantity + publicMintCount) <= 10) {
       setMintTextNumber(`${publicQuantity} x ${mintPriceEth} = ${mintPrice} ETH`)
-      const WeiPrice = Web3.utils.toWei(`${newQuantity * 0.01.toFixed(2)}`, 'ether')
-      const WeiBigNum = Web3.utils.toBN(WeiPrice).toString()
-      setMintPriceWei(WeiBigNum)
       setMintPrice(newQuantity * mintPriceEth)
       setPublicQuantity(newQuantity)
     }
