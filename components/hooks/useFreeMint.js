@@ -31,7 +31,7 @@ export const useFreeMint = (address, contractInfo, merkleProof, bigNumToNum) => 
   },[address, bigNumToNum, setAllowlistVerified, contractReadFreeMintCount.data, contractReadUserVerified.data])
   
   useEffect(() => {
-    setMintTextNumber(`${freeQuantity} x 0.01 = 0 ETH`)
+    setMintTextNumber(`${freeQuantity} x 0.00 = 0 ETH`)
   }, [freeQuantity])
 
   // Contract Writes
@@ -73,6 +73,7 @@ export const useFreeMint = (address, contractInfo, merkleProof, bigNumToNum) => 
     freeMintBtnDisabled,
     handleFreeMint,
     mintIndicatorCopy,
-    mintTextNumber
+    mintTextNumber,
+    showMintTextNumber
   } 
 }
