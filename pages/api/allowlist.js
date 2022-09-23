@@ -14,7 +14,8 @@ const allowlist =
 "0x6ac2B5703D220322270b820F6f34d6d88b467826",
 "0x365ABFE34592c5d1C57A2160B4e732c344c4033e",
 "0xD9E758941fED6F1659Cea187F9C819b087A7A56e",
-"0xf63D5B2b7C43d2465B1c0eaB04805c74069005a9"]
+"0xf63D5B2b7C43d2465B1c0eaB04805c74069005a9",
+"0x07Ac4f22Bf89fa481c572965a17F0243abf4B645"]
 
 const leaves = allowlist.map(x => keccak256(x))
 const tree = new MerkleTree(leaves, keccak256, {sortPairs: true})
