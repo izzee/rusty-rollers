@@ -24,7 +24,7 @@ const App = () => {
   
   // Contract Reads
   const contractInfo = {
-    addressOrName: '0x564e3283055471966F2D23dd8b63e39A268adb9e',
+    addressOrName: '0x7721Dc7A2a0bEEA249E52465e4559473155535b7',
     contractInterface: abi,
   }
   const contractReadSupply = useContractRead({
