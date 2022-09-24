@@ -45,7 +45,7 @@ export const usePublicMint = (address, contractInfo, bigNumToNum) => {
     functionName: 'mint',
     args: [publicQuantity],
     overrides: {
-      value:  Web3.utils.toBN(Web3.utils.toWei(`${publicQuantity * 0.025.toFixed(3)}`, 'ether')).toString()
+      value:  Web3.utils.toBN(Web3.utils.toWei(`${mintPrice}`, 'ether')).toString()
     },
     enabled: publicQuantity > 0 && publicQuantity + publicMintCount <= 10,
   })
@@ -65,7 +65,7 @@ export const usePublicMint = (address, contractInfo, bigNumToNum) => {
     const newQuantity = publicQuantity + direction;
     if (newQuantity >= 0 && (newQuantity + publicMintCount) <= 10) {
       setMintTextNumber(`${publicQuantity} x ${mintPriceEth} = ${mintPrice} ETH`)
-      setMintPrice(newQuantity * mintPriceEth)
+      setMintPrice((newQuantity * mintPriceEth).toFixed(3))
       setPublicQuantity(newQuantity)
     }
   }
