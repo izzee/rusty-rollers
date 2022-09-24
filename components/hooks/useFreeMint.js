@@ -59,6 +59,9 @@ export const useFreeMint = (address, contractInfo, merkleProof, bigNumToNum) => 
     return !validQuantity || !allowlistVerified
   }
   const mintIndicatorCopy = useMemo( () => {
+    if (!allowlistVerified) {
+      return 'Address not allowlisted'
+    }
     if (isLoading) {
       return 'Loading...'
     } else if (isSuccess) {

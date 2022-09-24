@@ -13,10 +13,12 @@
   
   p {
     font-family: eurostile-extended, sans-serif;
+    font-size: 15px;
 
     & + p {
-      margin-top: 24px;
+      margin-top: 16px;
     }
+    
   }
 
   @include bp(sm) {
@@ -25,12 +27,19 @@
     padding: 24px;
     gap: 24px;
     flex-direction: row;
-    align-items: flex-start;
+    align-items: stretch;
+   
   }
   @include bp(md) {
     padding: 40px;
     gap: 40px;
     margin: 80px auto;
+    p {
+      font-size: 16px;
+      & + p {
+        margin-top: 24px;
+      }
+    }
   }
 } 
 
@@ -51,7 +60,7 @@
   padding: 24px;
   background: rgba(242, 242, 242, 0.75);
   box-shadow: inset 0px 4px 16px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25);
-  @include bp(sm) {
+  @include bp(md) {
     padding: 40px;
   }
 }

@@ -8,6 +8,7 @@
   border-radius: 16px;
   box-shadow: inset 0px 40px 40px #FFFFFF;
   position: relative;
+  font-size: 15px;
   
   p + p {
     margin-top: 24px;
@@ -19,7 +20,10 @@
     gap: 40px;
     flex-direction: row;
     align-items: stretch;
+  }
 
+  @include bp(md) {
+    font-size: 16px;
   }
 } 
 
@@ -49,10 +53,14 @@
     margin: auto;
     margin-bottom: 16px;
     font-weight: 400;
-    font-size: 16px;
+    font-size: 15px;
     line-height: 1;
     @include bp(sm) {
       margin-bottom: 24px;
+    }
+    @include bp(md) {
+      font-size: 16px;
+
     }
   }
 

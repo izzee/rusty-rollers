@@ -27,10 +27,7 @@ const MintBlock = ({
       <div className={styles.blocktitle}>
         {supply || 0} of 500 minted
       </div>
-      {
-        displayFreeMint && 
-        <FreeMint {...mintBlockProps}/>
-      }
+      <FreeMint {...mintBlockProps}/>
       { 
         publicMintActive && 
         <PublicMint {...mintBlockProps}/>
