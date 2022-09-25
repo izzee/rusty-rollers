@@ -70,6 +70,7 @@ const App = () => {
         body: JSON.stringify({address}),
       })
       const {proof} = await response.json()
+      console.log(proof)
       setMerkleProof(proof)
     }
     checkIfAllowlisted()

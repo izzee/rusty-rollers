@@ -135,7 +135,7 @@ const allowlist =
 "0x13030c3bBb0B73a3a9e380A0D5C34Ce71Bd66263",
 "0x2025A33057fd15CE8740f4c3b3DaA67a2e32587c",
 "0x373ec7DDe24fd123a6f31a301a5EAf0C9cFd5590",
-"0xD38A05554beD33D330019a2b4afFF028f6Ac1462 ",
+"0xD38A05554beD33D330019a2b4afFF028f6Ac1462",
 "0xA8Bf13D21EEEb5786a440aefDE6265C7C0d66800",
 "0x8Da15F7e6bf20Eae393D0210d0F69eA98fC8Ea5e",
 "0xbA8012c6FeE3E532Eb5dd81D289fBc87f178C9bc",
@@ -200,7 +200,7 @@ const allowlist =
 "0x87375c43c6e95d2b1974662dc97e3ca25c3cd9a7",
 "0x90a87b61961927b0f3087ef369f7ab074ab55b36",
 "0xb3479ac22ab13a9d359c1aa0fdf6f7e3d39a207c",
-"0x2329A3412BA3e49be47274a72383839BBf1cdE88 ",
+"0x2329A3412BA3e49be47274a72383839BBf1cdE88",
 "0x885cb1217070bc7e05661a6B2a906Ce3d9cea705",
 "0x79d5347E03D4BEFB92a1374039f1998658D75d1D",
 "0x92e0049C4Cdd67512bdA9ba4dce55b554ACF44fF",
@@ -245,6 +245,7 @@ const allowlist =
 "0x4eC3B52C788f58a6f273F33e4cbC38ae2cBfE6C8",
 "0xA72A6211BDD98De08177967F36b6ebd52F6c9230"]
 
+
 const leaves = allowlist.map(x => keccak256(x))
 const tree = new MerkleTree(leaves, keccak256, {sortPairs: true})
 
@@ -253,7 +254,7 @@ export default function handler(req, res) {
   
   const leaf = keccak256(address)
   const proof = tree.getHexProof(leaf)
-
+  
   res.status(200).json({ address, proof })
 }
 

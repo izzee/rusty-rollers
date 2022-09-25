@@ -28,6 +28,7 @@ export const useFreeMint = (address, contractInfo, merkleProof, bigNumToNum, fre
     const freeMintCountIfActive = bigNumToNum(freeCount) || 0
     setFreeMintCount(freeMintCountIfActive)
     setAllowlistVerified(contractReadUserVerified.data)
+    console.log(contractReadUserVerified)
   },[address, bigNumToNum, setAllowlistVerified, contractReadFreeMintCount.data, contractReadUserVerified.data])
   
   useEffect(() => {
