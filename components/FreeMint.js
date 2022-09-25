@@ -30,11 +30,11 @@ const FreeMint = ({
       <h3>Free Mint</h3>
       <div className={styles.flexwrap}>
         <div className={styles.quantitybutton}>
-          <button onClick={() => changeFreeMintQuantity(-1)} disabled={!allowlistVerified || (freeQuantity == 0)}>
+          <button onClick={() => changeFreeMintQuantity(-1)} disabled={!allowlistVerified || freeMintBtnDisabled() || (freeQuantity == 0)}>
             <Image src='/images/down.svg' width='16px' height='8px' alt='Rusty Roller image'/>
           </button>
           
-          <button onClick={() => changeFreeMintQuantity(1)} disabled={!allowlistVerified || (freeQuantity + freeMintCount == 2)}>
+          <button onClick={() => changeFreeMintQuantity(1)} disabled={!allowlistVerified || freeMintBtnDisabled() || (freeQuantity + freeMintCount == 2)}>
             <Image src='/images/up.svg' width='16px' height='8px' alt='Rusty Roller image'/>
           </button>
         </div>

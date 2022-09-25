@@ -3,6 +3,8 @@ import {useMemo } from 'react';
 import styles from '../styles/MintBlock.module.scss'
 import FreeMint from '../components/FreeMint'
 import PublicMint from '../components/PublicMint'
+import SoldOut from '../components/SoldOut'
+
 
 
 const MintBlock = ({
@@ -41,9 +43,16 @@ const MintBlock = ({
       <div className={styles.blocktitle}>
         {titleCopy}
       </div>
-      <FreeMint {...mintBlockProps}/>
+      {
+        mintedOut && 
+        <SoldOut/>
+      }
+      {
+        !mintedOut &&
+        <FreeMint {...mintBlockProps}/>
+      }
       { 
-        publicMintActive && 
+        publicMintActive && !mintedOut &&
         <PublicMint {...mintBlockProps}/>
       }
     </div>

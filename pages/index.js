@@ -24,7 +24,7 @@ const App = () => {
   
   // Contract Reads
   const contractInfo = {
-    addressOrName: '0x42d35601CD93Ae9C6e6A394f1B4B10FaaB376aC7',
+    addressOrName: '0x286c3Bd2f5fD88a7bba588a03Ee6d7C1138eB0E0',
     contractInterface: abi,
   }
   const contractReadSupply = useContractRead({
@@ -96,7 +96,7 @@ const App = () => {
       </div>
       <InfoBlock />
       {
-        address && !mintedOut &&
+        address && 
         <MintBlock {...mintBlockProps} />
       }
       <BioBlock />
