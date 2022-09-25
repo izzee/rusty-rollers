@@ -1,26 +1,60 @@
-import Image from 'next/image'
-import styles from '../styles/MintBlock.module.scss'
+import {useMemo } from 'react';
 
-const MintBlock = () => {
+import styles from '../styles/MintBlock.module.scss'
+import FreeMint from '../components/FreeMint'
+import PublicMint from '../components/PublicMint'
+import SoldOut from '../components/SoldOut'
+
+
+
+const MintBlock = ({
+  address,
+  supply,
+  freeMintActive,
+  publicMintActive,
+  merkleProof,
+  contractInfo,
+  bigNumToNum
+}) => {
+
+  const mintBlockProps = {
+    address,
+    contractInfo,
+    merkleProof,
+    bigNumToNum,
+    freeMintActive
+  }
+
+  const showLaunchDate = !freeMintActive && !publicMintActive && (supply < 500)
+  const mintedOut = supply == 500
+
+  const titleCopy = useMemo(() => {
+    if (showLaunchDate) {
+      return 'Launching on 9.26.22'
+    } else if (mintedOut) {
+      return 'Sold Out!'
+    } else {
+      return `${supply || 0} of 500 minted`
+    }
+  }, [showLaunchDate, mintedOut, supply])
 
   return (
     <div className={styles.block}>
       <div className={styles.blocktitle}>
-        Free Mint
+        {titleCopy}
       </div>
-      <div className={styles.content}>
-        <div className={styles.quantitybutton}>
-          <button><Image src='/images/down.svg' width='16px' height='8px' alt='Rusty Roller image'/></button>
-          <button><Image src='/images/up.svg' width='16px' height='8px' alt='Rusty Roller image'/></button>
-        </div>
-        <div className={styles.mintquantity}>
-          <span>
-            <p>Coming Soon... </p>
-            
-          </span>
-        </div>
-        <button className={styles.mintbutton}>Mint</button>
-      </div>
+      {
+        mintedOut && 
+        <SoldOut/>
+      }
+      {
+        !mintedOut &&
+        <FreeMint {...mintBlockProps}/>
+      }
+      { 
+        publicMintActive && !mintedOut &&
+        <PublicMint {...mintBlockProps}/>
+      }
     </div>
   );
 };

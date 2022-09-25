@@ -1,27 +1,20 @@
 .block {
   border-radius: 16px;
   margin: 16px auto;
-  gap: 16px;
   background: linear-gradient( #cacad6, #FFFFFF);
   box-shadow: inset 0px 40px 40px #FFFFFF;
-  position: relative;
   padding-bottom: 2px;
-  
-  p {
-    font-family: eurostile-extended, sans-serif;
-  }
+  font-size: 15px;
+  font-family: eurostile-extended, sans-serif;
 
   @include bp(sm) {
     max-width: 100%;
     margin: 40px auto;
-    gap: 24px;
-    flex-direction: row;
-    align-items: stretch;
     padding-bottom: 4px;
 
   }
   @include bp(md) {
-    gap: 40px;
+    font-size: 16px;
     margin: 80px auto;
   }
 } 
@@ -30,16 +23,19 @@
   margin: 0 2px;
   display: flex;
   flex-wrap: wrap;
-  gap: 16px;
+  gap: 24px;
   flex: 1;
   padding: 16px;
   background: linear-gradient(#ffffff, #A3A3AD);
   box-shadow: inset 0px 4px 16px 4px #2e2e2e60;
 
   @include bp(sm) {
-    gap: 40px;
     padding: 40px;
     margin: 0 4px;
+  }
+
+  a {
+    text-decoration: underline;
   }
 }
 
@@ -49,4 +45,9 @@
   line-height: 64px;
   height: 64px;
   text-align: center;
+}
+
+.name {
+  text-decoration: none !important;
+  font-weight: bold;
 }
