@@ -63,7 +63,7 @@ export const useFreeMint = (address, contractInfo, merkleProof, bigNumToNum, fre
   }
   const freeMintBtnDisabled = () => {
     const validQuantity = freeQuantity > 0 && freeQuantity + freeMintCount <= 2
-    return !validQuantity || !allowlistVerified
+    return !validQuantity || !allowlistVerified || !freeMintActive
   }
   const mintIndicatorCopy = useMemo( () => {
     if (isLoading) {
