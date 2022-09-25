@@ -85,6 +85,8 @@ const App = () => {
     bigNumToNum
   }
 
+  const mintedOut = supply == 500;
+
   return (
     <main className={styles.main}>
       <TopNav/>
@@ -93,7 +95,7 @@ const App = () => {
       </div>
       <InfoBlock />
       {
-        address &&
+        address && !mintedOut &&
         <MintBlock {...mintBlockProps} />
       }
       <BioBlock />

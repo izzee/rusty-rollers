@@ -1,7 +1,7 @@
 import { useState, useMemo, useEffect } from 'react';
 import { useContractRead, usePrepareContractWrite, useContractWrite} from 'wagmi'
 
-export const useFreeMint = (address, contractInfo, merkleProof, bigNumToNum) => {
+export const useFreeMint = (address, contractInfo, merkleProof, bigNumToNum, freeMintActive) => {
   const [freeQuantity, setFreeQuantity] = useState(0)
   const [freeMintCount, setFreeMintCount] = useState(0)
   const [allowlistVerified, setAllowlistVerified] = useState(false)
@@ -31,8 +31,14 @@ export const useFreeMint = (address, contractInfo, merkleProof, bigNumToNum) => 
   },[address, bigNumToNum, setAllowlistVerified, contractReadFreeMintCount.data, contractReadUserVerified.data])
   
   useEffect(() => {
-    setMintTextNumber(`${freeQuantity} x 0.00 = 0 ETH`)
-  }, [freeQuantity])
+    if (allowlistVerified && !freeMintActive) {
+      setMintTextNumber('Allowlisted')
+    } else if (!allowlistVerified) {
+      setMintTextNumber('Not allowlisted')
+    } else {
+      setMintTextNumber(`${freeQuantity} x 0.00 = 0 ETH`)
+    }
+  }, [freeQuantity, allowlistVerified, freeMintActive])
 
   // Contract Writes
   const {config: freeMintConfig} = usePrepareContractWrite({
@@ -59,9 +65,6 @@ export const useFreeMint = (address, contractInfo, merkleProof, bigNumToNum) => 
     return !validQuantity || !allowlistVerified
   }
   const mintIndicatorCopy = useMemo( () => {
-    if (!allowlistVerified) {
-      return 'Address not allowlisted'
-    }
     if (isLoading) {
       return 'Loading...'
     } else if (isSuccess) {
@@ -77,6 +80,7 @@ export const useFreeMint = (address, contractInfo, merkleProof, bigNumToNum) => 
     handleFreeMint,
     mintIndicatorCopy,
     mintTextNumber,
-    showMintTextNumber
+    showMintTextNumber,
+    allowlistVerified
   } 
 }

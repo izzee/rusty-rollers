@@ -1,3 +1,5 @@
+import {useMemo } from 'react';
+
 import styles from '../styles/MintBlock.module.scss'
 import FreeMint from '../components/FreeMint'
 import PublicMint from '../components/PublicMint'
@@ -18,14 +20,26 @@ const MintBlock = ({
     contractInfo,
     merkleProof,
     bigNumToNum,
+    freeMintActive
   }
 
-  const displayFreeMint = !!merkleProof.length && !!freeMintActive
+  const showLaunchDate = !freeMintActive && !publicMintActive && (supply < 500)
+  const mintedOut = supply == 500
+
+  const titleCopy = useMemo(() => {
+    if (showLaunchDate) {
+      return 'Launching on 9.26.22'
+    } else if (mintedOut) {
+      return 'Sold Out!'
+    } else {
+      return `${supply || 0} of 500 minted`
+    }
+  }, [showLaunchDate, mintedOut, supply])
 
   return (
     <div className={styles.block}>
       <div className={styles.blocktitle}>
-        {supply || 0} of 500 minted
+        {titleCopy}
       </div>
       <FreeMint {...mintBlockProps}/>
       { 
