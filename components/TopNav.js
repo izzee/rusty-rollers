@@ -14,7 +14,7 @@ const TopNav = () => {
         <a href="https://opensea.io/collection/rustyrollers" target="_blank" rel="noreferrer">
           <Image src='/images/opensea.svg' alt='opensea icon' width='40px' height='40px'/>
         </a>
-        <a href="https://etherscan.io/0x7721Dc7A2a0bEEA249E52465e4559473155535b7" target="_blank" rel="noreferrer">
+        <a href="https://etherscan.io/address/0x0c537f8F6780628aFdf866E41A81d2ED97CFC8a2" target="_blank" rel="noreferrer">
           <Image src='/images/etherscan.svg' alt='etherscan icon' width='40px' height='40px'/>
         </a>
       </div>
