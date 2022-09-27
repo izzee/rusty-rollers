@@ -1,6 +1,7 @@
 import '../styles/globals.scss'
 import '@rainbow-me/rainbowkit/styles.css';
 
+
 import { getDefaultWallets, RainbowKitProvider, lightTheme } from '@rainbow-me/rainbowkit';
 import { chain, configureChains, createClient, WagmiConfig } from 'wagmi';
 import { alchemyProvider } from 'wagmi/providers/alchemy';
