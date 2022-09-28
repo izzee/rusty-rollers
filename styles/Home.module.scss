@@ -30,7 +30,24 @@
 
   > div {
     flex: 0;
+    @include bp(sm) {
+      transition: transform .25s;
+      &:hover  {
+        transform: scale(1.1);
+      }
+    }
   }
+  p {
+    font-size: 12px;
+    color: white;
+    font-family: eurostile-extended;
+    text-align: center;
+    margin-top: -40px;
+    font-weight: 500;
+  }
+
+  
+
 }
 
 .showmore {
@@ -44,7 +61,7 @@
   font-weight: 700;
   line-height: 2.5;
   padding: 0 16px;
-  margin: 16px auto 32px;
+  margin: 32px auto;
   cursor: pointer;
   display: block;
 

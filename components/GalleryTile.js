@@ -32,6 +32,7 @@ const GalleryTile = ({index}) => {
           onClick={handleImageClick}
           onError={handleImageClick}
         />
+        <p>{`#${index + 1}`}</p>
       </a>
     </div>
   )
