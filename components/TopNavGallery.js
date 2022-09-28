@@ -13,7 +13,7 @@ const TopNav = () => {
  
       <div className={styles.socials}>
         <Link  href="/">
-          <a className={styles.homebutton}>{`Mint`}</a>
+          <a className={styles.homebutton}>{`About`}</a>
         </Link>   
         <a href="https://twitter.com/rusty_rollers" target="_blank" rel="noreferrer">
           <Image src='/images/twitter.svg' alt='twitter icon' width='40px' height='40px'/>
