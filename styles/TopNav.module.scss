@@ -27,8 +27,25 @@
 
 .socials {
   display: flex;
+  align-items: center;
   gap: 8px;
   @include bp(sm) {
     gap: 16px;
+  }
+}
+
+.homebutton{ 
+  color: #000;
+  font-weight: 700;
+  line-height: 3.3333333;
+  background: #F5AF37;
+  border-radius: 32px;
+  border-width: 0px;
+  font-family: eurostile-extended;
+  text-transform: uppercase;
+  padding: 0 16px;
+  @include bp(sm) {
+  line-height: 2.5;
+
   }
 }

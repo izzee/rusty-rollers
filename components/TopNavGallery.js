@@ -1,5 +1,5 @@
-import Link from 'next/link';
 import Image from 'next/image'
+import Link from 'next/link';
 import styles from '../styles/TopNav.module.scss'
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 
@@ -10,10 +10,11 @@ const TopNav = () => {
     <div className={styles.topnav} >
       <ConnectButton showBalance={false} />    
 
+ 
       <div className={styles.socials}>
-        <Link href="gallery">
-          <a className={styles.homebutton}>Gallery</a>
-        </Link> 
+        <Link  href="/">
+          <a className={styles.homebutton}>{`About`}</a>
+        </Link>   
         <a href="https://twitter.com/rusty_rollers" target="_blank" rel="noreferrer">
           <Image src='/images/twitter.svg' alt='twitter icon' width='40px' height='40px'/>
         </a>
@@ -23,7 +24,6 @@ const TopNav = () => {
         <a href="https://etherscan.io/address/0x0c537f8F6780628aFdf866E41A81d2ED97CFC8a2" target="_blank" rel="noreferrer">
           <Image src='/images/etherscan.svg' alt='etherscan icon' width='40px' height='40px'/>
         </a>
-  
       </div>
     </div>
   );

@@ -1,6 +1,7 @@
 import { useAccount, useContractRead} from 'wagmi'
 import { useState, useEffect } from 'react';
 import { ethers } from "ethers";
+import Head from 'next/head'
 
 import Image from 'next/image'
 import styles from '../styles/Home.module.scss'
@@ -90,15 +91,15 @@ const App = () => {
 
   return (
     <main className={styles.main}>
+      <Head>
+        <title>Rusty Rollers</title>
+      </Head>
       <TopNav/>
       <div className={styles.titleimg}>
         <Image src='/images/rusty-rollers-title.svg' width='960' height='144' layout="intrinsic" alt='Rusty Rollers Title'/>
       </div>
       <InfoBlock />
-      {
-        address && 
-        <MintBlock {...mintBlockProps} />
-      }
+      <MintBlock {...mintBlockProps} />
       <BioBlock />
     </main>
   );
