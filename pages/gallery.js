@@ -34,7 +34,7 @@ const Gallery = () => {
         </div>
       ))}
       </div>
-      <button disabled={blocksToRender >= 30} className={styles.showmore} onClick={renderNewBlock}>Show More</button>
+      <button disabled={blocksToRender >= 500} className={styles.showmore} onClick={renderNewBlock}>Show More</button>
     </main>
 
   )
