@@ -20,7 +20,7 @@ const GalleryTile = ({index}) => {
 
   return (
     <div >
-        <div>{`${loaded}`}</div>
+      <a href={`https://ipfs.io/ipfs/bafybeiazor6bl6gwkazsi6o4d5jfp2ld6q4rnhodz32ezq6mvm5zt76oiq/${index + 1}.mp4`} target="_blank" rel="noreferrer">
         <Image 
           alt={`rusty roller`} 
           placeholder="blur"
@@ -32,6 +32,7 @@ const GalleryTile = ({index}) => {
           onClick={handleImageClick}
           onError={handleImageClick}
         />
+      </a>
     </div>
   )
 }

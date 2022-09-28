@@ -99,10 +99,7 @@ const App = () => {
         <Image src='/images/rusty-rollers-title.svg' width='960' height='144' layout="intrinsic" alt='Rusty Rollers Title'/>
       </div>
       <InfoBlock />
-      {
-        address && 
-        <MintBlock {...mintBlockProps} />
-      }
+      <MintBlock {...mintBlockProps} />
       <BioBlock />
     </main>
   );
